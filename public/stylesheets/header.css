@@ -1,24 +1,4 @@
-.header-dark {
-  background: url(mountain_bg.jpg) #444;
-  background-size: cover;
-  padding-bottom: 80px;
-}
 
-@media (min-width:768px) {
-  .header-dark {
-    padding-bottom: 120px;
-  }
-}
-
-.header-dark .navbar {
-  background: transparent;
-  padding-top: 0;
-  padding-bottom: 0;
-  color: #fff;
-  border-radius: 0;
-  box-shadow: none;
-  border: none;
-}
 
 @media (min-width:768px) {
   .header-dark .navbar {
@@ -92,7 +72,7 @@
 .header-dark .navbar .dropdown-menu .dropdown-item:focus, .header-dark .navbar .dropdown-menu .dropdown-item {
   line-height: 2;
   font-size: 14px;
-  color: #37434d;
+  color: #fff;
 }
 
 .header-dark .navbar .dropdown-menu .dropdown-item:focus, .header-dark .navbar .dropdown-menu .drodown-item:hover {

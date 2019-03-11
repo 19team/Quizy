@@ -1,23 +1,53 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-const bcrypt = require("bcrypt-nodejs");
+module.exports = function(sequelize, Sequelize) {
+  /**
+   * model User
+   */
+  var User = sequelize.define("user", {
+    id: {
+      autoIncrement: true,
+      primaryKey: true,
+      type: Sequelize.INTEGER
+    },
 
-const userSchema = new Schema({
-  firstname: { type: String, require: true },
-  lastname: { type: String, require: true },
-  username: { type: String, require: true },
-  age: { type: Number, require: true },
-  email: { type: String, require: true },
-  password: { type: String, require: true }
-});
+    firstname: {
+      type: Sequelize.STRING,
+      notEmpty: true
+    },
 
-userSchema.methods.encryptPassword = function(password) {
-  return bcrypt.hashSync(password, bcrypt.genSaltSync(5), null);
+    lastname: {
+      type: Sequelize.STRING,
+      notEmpty: true
+    },
+
+    username: {
+      type: Sequelize.TEXT
+    },
+
+    about: {
+      type: Sequelize.TEXT
+    },
+
+    email: {
+      type: Sequelize.STRING,
+      validate: {
+        isEmail: true
+      }
+    },
+
+    password: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+
+    last_login: {
+      type: Sequelize.DATE
+    },
+
+    status: {
+      type: Sequelize.ENUM("active", "inactive"),
+      defaultValue: "active"
+    }
+  });
+
+  return User;
 };
-
-userSchema.methods.validPassword = function(password) {
-  return bcrypt.compareSync(password, this.password);
-};
-
-module.exports = mongoose.model("User", userSchema);
-

@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "root",
+    "password": "",
+    "database": "my_schema",
+    "host": "localhost",
+    "dialect": "mysql"
+  }
+}
