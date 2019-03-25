@@ -1,0 +1,12 @@
+.btn-answer {
+    font-size: 20px;
+    color: #212529;
+}
+
+#question {
+    color: #ffffff;
+} 
+
+#game-container {
+    padding-top: 75px;
+}
