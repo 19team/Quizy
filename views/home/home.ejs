@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
-    <title>Home - Brand</title>
+    <title>Home</title>
 
     <% include ../scripts/script %>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
@@ -14,9 +14,9 @@
     <link rel="stylesheet" href="/stylesheets/font-awesome.min.css" />
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css" />
     <link rel="stylesheet" href="/stylesheets/style.css" />
-    
-    
-    
+
+
+
 </head>
 
 <body id="page-top">
@@ -34,13 +34,17 @@
                             href="#about">About</a></li>
                     <li class="nav-item mx-0 mx-lg-1" role="presentation"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                             href="#contact">Contact</a></li>
+                    
                 </ul>
-                <span class="navbar-text"><a href="/user/signin" class="nav-item d-xl-flex justify-content-xl-start login" style="color: #3e3e3e;font-size: 18px;">Đăng
-                        nhập</a>
-                </span><a class="nav-item btn btn-light d-inline d-xl-flex justify-content-xl-start action-button" role="button" href="/user/signup"
-                    style="background-color: #3e3e3e;font-size: 18px;">Đăng ký</a>
-                </div>
+                <% if (!isLogged) { %>
+                <a id="btn-signin" href="/user/signin" class="nav-item text-center">Đăng
+                    nhập</a>
+                <a id="btn-signup" href="/user/signup" class="nav-item text-center">Đăng ký</a>
+                <% } else { %>
+                    <a id="btn-signup" href="/user/profile" class="nav-item text-center"> <%= username %> </a>
+                <% } %>
             </div>
+        </div>
         </div>
     </nav>
     <header class="masthead bg-primary text-white text-center">

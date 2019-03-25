@@ -1,5 +1,5 @@
 <% layout('../layouts/layout') -%>
-<script type="text/javascript" src="./bundle.js"></script>
+<script type="text/javascript" src="../javascripts/QuizGame.js"></script>
 <script type="text/javascript" src="../javascripts/classic-mode-controller.js"></script>
 
 <div class="container" id="game-container">
@@ -39,6 +39,11 @@
         <div>
           <button id="nextQuestion" class="btn btn-light text-center d-flex float-none" type="button" style="width: 100%;">
             Câu tiếp
+          </button>
+        </div>
+        <div>
+          <button id="newGame" class="btn btn-light text-center d-flex float-none" type="button" style="width: 100%;">
+            Ván mới
           </button>
         </div>
         <div class="question-container"></div>

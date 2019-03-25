@@ -1,8 +1,7 @@
 var bCrypt = require("bcrypt-nodejs");
-
-module.exports = function(passport, user) {
+module.exports = function(passport, user, userdetails) {
   var User = user;
-
+  var UserDetails = userdetails;
   var LocalStrategy = require("passport-local").Strategy;
 
   //serialize
@@ -60,9 +59,27 @@ module.exports = function(passport, user) {
                 return done(null, false);
               }
               if (newUser) {
+                User.findOne({
+                  where: {
+                    email: email
+                  }
+                }).then(result => {
+                  var id = result.dataValues.id;
+                  var details = {
+                    user_id: id,
+                    winMatchQuantity: 0,
+                    playedMatchQuantity: 0,
+                    trueQuizQuantity: 0,
+                    falseQuizQuantity: 0,
+                    trueQuizSeries: 0
+                  };
+                  UserDetails.create(details);
+                });
                 return done(null, newUser);
               }
             });
+
+            
           }
         });
       }

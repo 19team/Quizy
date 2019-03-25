@@ -1,3 +1,5 @@
+var UserDetails = require("./userdetails");
+
 module.exports = function(sequelize, Sequelize) {
   /**
    * model User
@@ -49,5 +51,14 @@ module.exports = function(sequelize, Sequelize) {
     }
   });
 
+  UserDetails.associate = function (models) {
+    UserDetails.belongsTo(models.User, {
+      foreignKey: "id",
+      targetKy: "user_id"
+    })
+  }
+
+
+  
   return User;
 };

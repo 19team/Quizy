@@ -8,21 +8,29 @@ router.get("/", function(req, res, next) {
 });
 
 router.get("/signin", (req, res, next) => {
-  res.render("user/signin", { title: "Sign In Quizy" });
+  res.render("user/signin", {
+    title: "Sign In Quizy",
+    isLogged: req.isLogged
+  });
 });
 
 router.get("/signup", (req, res, next) => {
-  res.render("user/signup", { title: "Sign Up Quizy" });
+  res.render("user/signup", { title: "Sign Up Quizy", isLogged: req.isLogged });
 });
 
 router.get("/profile", isLoggedIn, (req, res, next) => {
-  res.render("user/profile", { title: "Profile"});
+  res.render("user/profile", {
+    title: "Profile",
+    isLogged: req.isLogged,
+    username: req.user
+      ? req.user.firstname + " " + req.user.lastname
+      : "Not logged in"
+  });
 });
 
 router.use("/", notLoggedIn, (req, res, next) => {
   next();
 });
-
 
 router.post(
   "/signup",
@@ -40,19 +48,17 @@ router.post(
   })
 );
 
-
 router.get("/signout", function(req, res, next) {
-  if (
-    req.session.destroy(function(err) {
-      res.redirect("/");
-    })
-  );
+  req.session.destroy(function(err) {
+    res.redirect("/");
+  });
 });
 
-
 function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated()) return next();
-
+  if (req.isAuthenticated()) {
+    req.isLogged = true;
+    return next();
+  }
   res.redirect("/user/signin");
 }
 

@@ -5,7 +5,7 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/user");
-const gamesRouter = require("./routes/game");
+var gamesRouter = require("./routes/game");
 
 var app = express();
 
@@ -55,7 +55,7 @@ models.sequelize
     console.log(err, "Something went wrong with the Database Update!");
   });
 
-require("./config/passport")(passport, models.user);
+require("./config/passport")(passport, models.user, models.userdetails);
 
 //______________________________________________
 app.use("/", indexRouter);
@@ -66,6 +66,7 @@ app.use("/games", gamesRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
 
 // error handler
 app.use(function(err, req, res, next) {

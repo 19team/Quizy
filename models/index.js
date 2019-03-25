@@ -17,15 +17,15 @@ var sequelize = new Sequelize(
 );
 var db = {};
 fs.readdirSync(__dirname)
-  .filter(function(file) {
+  .filter(function (file) {
     return file.indexOf(".") !== 0 && file !== "index.js";
   })
-  .forEach(function(file) {
+  .forEach(function (file) {
     var model = sequelize.import(path.join(__dirname, file));
     db[model.name] = model;
   });
 
-Object.keys(db).forEach(function(modelName) {
+Object.keys(db).forEach(function (modelName) {
   if ("associate" in db[modelName]) {
     db[modelName].associate(db);
   }
@@ -33,5 +33,15 @@ Object.keys(db).forEach(function(modelName) {
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+
+db.user.hasOne(db.userdetails, {
+  foreignKey: "id",
+  targetKey: "user_id"
+});
+
+db.userdetails.belongsTo(db.user, {
+  foreignKey: "user_id",
+  targetKey: "id"
+});
 
 module.exports = db;

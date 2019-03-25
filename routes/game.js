@@ -3,15 +3,38 @@ var router = express.Router();
 var models = require("../models");
 var Sequelize = require("sequelize");
 const Question = models.question;
+const User = models.user;
+const UserDetails = models.userdetails;
+
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    req.isLogged = true;
+    return next();
+  }
+  res.redirect("/user/signin");
+}
+
+function notLoggedIn(req, res, next) {
+  if (!req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect("/");
+}
 
 /* GET home page. */
-router.get("/classic", function(req, res, next) {
-  res.render("games/classic", { title: "Classic" });
+router.get("/classic", isLoggedIn ,function(req, res, next) {
+  console.log(req.user);
+  res.render("games/classic", {
+    title: "Classic",
+    isLogged: req.isLogged,
+    username: req.user
+      ? req.user.firstname + " " + req.user.lastname
+      : "Not logged in"
+  });
 });
 
 //get a question
 router.get("/getQuestion", function(req, res) {
-  console.log("Client yeu cau cau hoi");
   Question.findOne({
     order: [[Sequelize.fn("RAND")]],
     limit: 1
@@ -41,21 +64,27 @@ router.get("/getQuestion", function(req, res) {
 //check answer
 router.post("/getAnswer", function(req, res) {
   const submitData = req.body;
-  Question.findOne({ where: { question: submitData.question } })
-    .then(data => {
-      console.log(data.dataValues);
-      console.log("Cau tra loi cua no la: " + submitData.answer);
-      if (data.dataValues.answer === submitData.answer) {
-        console.log("Dung roi");
-        res.send({ result: true });
-      } else {
-        console.log("Sai roi");
-        res.send({ result: false });
-      }
-    })
-    .catch(err => {
-      console.log(err);
-    });
+  var user = req.user;
+  console.log(user);
+  UserDetails.findOne({where: {user_id: user.id}}).then((userDetails) => {
+    console.log("USER DETAILS: " + userDetails);
+    Question.findOne({ where: { question: submitData.question } })
+      .then(data => {
+        console.log(data.dataValues);
+        if (data.dataValues.answer === submitData.answer) {
+          res.send({ result: true });
+          userDetails.addTrueQuizQuantity();
+        } else {
+          res.send({ result: false });
+          userDetails.addFalseQuizQuantity();
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  });
+  
+  
 });
 
 //get answer
