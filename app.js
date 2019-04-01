@@ -3,6 +3,8 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+const flash = require("connect-flash");
+const validator = require("express-validator");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/user");
 var gamesRouter = require("./routes/game");
@@ -20,6 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+
 //Import them vao
 var passport = require("passport");
 var session = require("express-session");
@@ -32,8 +35,12 @@ app.use(
   })
 );
 app.use(bodyParser.json());
-// For Passport
 
+
+// For Passport
+//check sign up
+app.use(validator());
+app.use(flash());
 app.use(
   session({ secret: "keyboard cat", resave: true, saveUninitialized: true })
 ); // session secret
@@ -57,7 +64,7 @@ models.sequelize
 
 require("./config/passport")(passport, models.user, models.userdetails);
 
-//______________________________________________
+//routes
 app.use("/", indexRouter);
 app.use("/user", usersRouter);
 app.use("/games", gamesRouter);
@@ -67,6 +74,11 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
+app.use((req, res, next) => {
+  res.locals.login = req.isAuthenticated();
+  res.locals.session = req.session;
+  next();
+});
 
 // error handler
 app.use(function(err, req, res, next) {

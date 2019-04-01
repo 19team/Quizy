@@ -22,7 +22,7 @@ function notLoggedIn(req, res, next) {
 }
 
 /* GET home page. */
-router.get("/classic", isLoggedIn ,function(req, res, next) {
+router.get("/classic", isLoggedIn, function (req, res, next) {
   console.log(req.user);
   res.render("games/classic", {
     title: "Classic",
@@ -34,7 +34,7 @@ router.get("/classic", isLoggedIn ,function(req, res, next) {
 });
 
 //get a question
-router.get("/getQuestion", function(req, res) {
+router.get("/getQuestion", function (req, res) {
   Question.findOne({
     order: [[Sequelize.fn("RAND")]],
     limit: 1
@@ -62,29 +62,54 @@ router.get("/getQuestion", function(req, res) {
 });
 
 //check answer
-router.post("/getAnswer", function(req, res) {
+router.post("/getAnswer", function (req, res) {
   const submitData = req.body;
+  //get current user
   var user = req.user;
-  console.log(user);
-  UserDetails.findOne({where: {user_id: user.id}}).then((userDetails) => {
+  //find user'details inorder to update information
+  UserDetails.findOne({ where: { user_id: user.id } }).then(userDetails => {
     console.log("USER DETAILS: " + userDetails);
     Question.findOne({ where: { question: submitData.question } })
       .then(data => {
         console.log(data.dataValues);
+        //if user had true answer, send result
         if (data.dataValues.answer === submitData.answer) {
           res.send({ result: true });
-          userDetails.addTrueQuizQuantity();
+          // update true quiz quantity
+          userDetails.update({
+            trueQuizQuantity: userDetails.dataValues.trueQuizQuantity + 1
+          });
+          //update true quiz series
+          userDetails.update({
+            currentTrueQuizSeries:
+              userDetails.dataValues.currentTrueQuizSeries + 1
+          });
+          //if current true quiz series is greater than true quiz series, update
+          if (
+            userDetails.dataValues.currentTrueQuizSeries >
+            userDetails.dataValues.trueQuizSeries
+          ) {
+            userDetails.update({
+              trueQuizSeries:
+                userDetails.dataValues.currentTrueQuizSeries
+            });
+          }
+          console.log(userDetails.dataValues.trueQuizQuantity);
+          //if user had false answer, send result and update false quiz quantity
         } else {
           res.send({ result: false });
-          userDetails.addFalseQuizQuantity();
+          //current true quiz series back to 0
+          userDetails.update({
+            falseQuizQuantity: userDetails.dataValues.falseQuizQuantity + 1,
+            currentTrueQuizSeries: 0
+          });
+          console.log(userDetails.dataValues.falseQuizQuantity);
         }
       })
       .catch(err => {
         console.log(err);
       });
   });
-  
-  
 });
 
 //get answer

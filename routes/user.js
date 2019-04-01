@@ -8,14 +8,26 @@ router.get("/", function(req, res, next) {
 });
 
 router.get("/signin", (req, res, next) => {
+  var messages = req.flash("error");
   res.render("user/signin", {
-    title: "Sign In Quizy",
-    isLogged: req.isLogged
+    title: "Đăng nhập",
+    isLogged: req.isLogged,
+    messages: messages,
+    hasErrors: messages.length > 0
   });
 });
 
 router.get("/signup", (req, res, next) => {
-  res.render("user/signup", { title: "Sign Up Quizy", isLogged: req.isLogged });
+  var messages = req.flash("error");
+  messages.forEach(element => {
+    console.log(element);
+  });
+  res.render("user/signup", {
+    title: "Đăng ký",
+    isLogged: req.isLogged,
+    messages: messages,
+    hasErrors: messages.length > 0
+  });
 });
 
 router.get("/profile", isLoggedIn, (req, res, next) => {
