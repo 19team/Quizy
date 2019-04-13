@@ -47,7 +47,7 @@ router.use("/", notLoggedIn, (req, res, next) => {
 router.post(
   "/signup",
   passport.authenticate("local-signup", {
-    successRedirect: "/user/profile",
+    successRedirect: "/",
     failureRedirect: "/user/signup"
   })
 );
@@ -55,7 +55,7 @@ router.post(
 router.post(
   "/signin",
   passport.authenticate("local-signin", {
-    successRedirect: "/user/profile",
+    successRedirect: "/",
     failureRedirect: "/user/signin"
   })
 );

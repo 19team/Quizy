@@ -66,6 +66,7 @@ class QuizGame {
       this.checkMaxQuestionAmount();
       this.isAnswered = true;
     }
+    $("#nextQuestion").show();
   }
 
   /**
@@ -84,7 +85,11 @@ class QuizGame {
         });
       }
     );
-    this.checkMaxQuestionAmount();
+    if (!this.checkMaxQuestionAmount()) {
+      $("#nextQuestion").show();
+    } else {
+      this.showEndGameStage();
+    }
   }
 
   /**
@@ -102,6 +107,7 @@ class QuizGame {
       this.currentQuestionIndex++;
       this.isAnswered = false;
     });
+    $("#nextQuestion").hide();
   }
 
   /**
@@ -117,9 +123,16 @@ class QuizGame {
    */
   checkMaxQuestionAmount() {
     if (this.currentQuestionIndex == this.maxQuestionAmount) {
-      $("#newGame").text(
-        "Kết thúc. Bạn được " + this.score + "/" + this.maxQuestionAmount
-      );
+      return true;
     }
+    return false;
+  }
+
+  showEndGameStage() {
+    $("#game-stage").hide();
+    $("#end-stage").show();
+    $("#result").text(
+      "Bạn trả lời đúng: " + this.score + "/" + this.maxQuestionAmount
+    );
   }
 }

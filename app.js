@@ -7,7 +7,7 @@ const flash = require("connect-flash");
 const validator = require("express-validator");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/user");
-var gamesRouter = require("./routes/game");
+var gamesRouter = require("./game-api/routes/game");
 
 var app = express();
 
