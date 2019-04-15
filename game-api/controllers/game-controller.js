@@ -3,7 +3,6 @@ const models = require("../../models");
 const Question = models.question;
 const UserDetails = models.userdetails;
 const utils = require("../../utils/utils");
-
 exports.getGamePage = function(req, res) {
   console.log(req.user);
   res.render("games/classic", {
@@ -55,9 +54,10 @@ exports.checkAnswer = function(req, res) {
         //if user had true answer, send result
         if (data.dataValues.answer === submitData.answer) {
           res.send({ result: true });
-          // update true quiz quantity
+          // update true quiz quantity, exp += 5
           userDetails.update({
-            trueQuizQuantity: userDetails.dataValues.trueQuizQuantity + 1
+            trueQuizQuantity: userDetails.dataValues.trueQuizQuantity + 1,
+            exp: userDetails.dataValues.exp + 5
           });
           //update true quiz series
           userDetails.update({
@@ -77,10 +77,11 @@ exports.checkAnswer = function(req, res) {
           //if user had false answer, send result and update false quiz quantity
         } else {
           res.send({ result: false });
-          //current true quiz series back to 0
+          //current true quiz series back to 0, exp += 1
           userDetails.update({
             falseQuizQuantity: userDetails.dataValues.falseQuizQuantity + 1,
-            currentTrueQuizSeries: 0
+            currentTrueQuizSeries: 0,
+            exp: userDetails.dataValues.exp + 1
           });
           console.log(userDetails.dataValues.falseQuizQuantity);
         }
@@ -100,4 +101,15 @@ exports.getTrueAnswer = function(req, res) {
     .catch(err => {
       console.log(err);
     });
+  //get current user
+  var user = req.user;
+  //find user'details inorder to update information
+  UserDetails.findOne({ where: { user_id: user.id } }).then(userDetails => {
+    //current true quiz series back to 0, exp += 1
+    userDetails.update({
+      falseQuizQuantity: userDetails.dataValues.falseQuizQuantity + 1,
+      currentTrueQuizSeries: 0,
+      exp: userDetails.dataValues.exp + 1
+    });
+  });
 };

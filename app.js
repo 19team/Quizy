@@ -8,6 +8,7 @@ const validator = require("express-validator");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/user");
 var gamesRouter = require("./game-api/routes/game");
+var ranksRouter = require("./rank-api/routes/rank");
 
 var app = express();
 
@@ -68,6 +69,7 @@ require("./config/passport")(passport, models.user, models.userdetails);
 app.use("/", indexRouter);
 app.use("/user", usersRouter);
 app.use("/games", gamesRouter);
+app.use("/rank", ranksRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
