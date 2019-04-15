@@ -12,14 +12,14 @@
   padding: 40px;
   border-radius: 4px;
   color: #505e6c;
-  box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
 }
 
 .login-clean .illustration {
   text-align: center;
   padding: 0 0 20px;
   font-size: 100px;
-  color: rgb(244,71,107);
+  color: rgb(244, 71, 107);
 }
 
 .login-clean form .form-control {
@@ -45,7 +45,8 @@
   outline: none !important;
 }
 
-.login-clean form .btn-primary:hover, .login-clean form .btn-primary:active {
+.login-clean form .btn-primary:hover,
+.login-clean form .btn-primary:active {
   background: #eb3b60;
 }
 
@@ -62,11 +63,12 @@
   text-decoration: none;
 }
 
-.login-clean form .forgot:hover, .login-clean form .forgot:active {
+.login-clean form .forgot:hover,
+.login-clean form .forgot:active {
   opacity: 1;
   text-decoration: none;
 }
 
-.container {
+#game-container {
   background: #272727;
 }
