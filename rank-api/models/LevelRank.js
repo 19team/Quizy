@@ -14,6 +14,7 @@ module.exports = class LevelRank extends AbstractRank {
   async update() {
     //get top 10 from database
     await UserDetail.findAll({
+      attributes: ["user_id", "level", "exp"],
       order: [["level", "DESC"]],
       limit: 10,
       include: [{ model: models.user }]
@@ -33,23 +34,28 @@ module.exports = class LevelRank extends AbstractRank {
     return this.top10;
   }
 
-  getPositionById(id) {
-    return UserDetail.findAll({attributes: ["user_id", "level", "exp"], order: [["level", "DESC"]] })
-      .then(data => {
-        let pos = 1;
-        for (let i = 0; i < data.length; i++) {
-          let currentId = data[i].dataValues.user_id;
-          if (currentId === id) {
-            break;
-          }
-          pos++;
+  async getPositionById(id) {
+    return UserDetail.findAll({
+      attributes: ["user_id", "level", "exp"],
+      order: [["level", "DESC"]]
+    }).then(data => {
+      let pos = 1;
+      for (let i = 0; i < data.length; i++) {
+        let currentId = data[i].dataValues.user_id;
+        console.log("So sanh :" + currentId + " va " + id);
+        if (currentId === id) {
+          console.log("Dung roi");
+          break;
         }
-        console.log(pos);
-        return 4;
-      })
-      .catch(reason => {
-        console.log(reason);
-      });
+        pos++;
+      }
+      console.log(pos);
+      return pos;
+    }) 
+    .catch(reason => {
+      console.log(reason);
+    });
   }
 
 };
+ 

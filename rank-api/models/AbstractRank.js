@@ -1,7 +1,6 @@
 module.exports = class AbstractRank {
   constructor() {
     this.top10 = [];
-    this.myPosition;
   }
 
   update() {}
@@ -12,7 +11,8 @@ module.exports = class AbstractRank {
   getTop10() {
   }
 
-  getPositionById(id) {
-
+  async getPositionById(id) {
   }
+
+
 };

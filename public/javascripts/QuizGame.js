@@ -96,6 +96,7 @@ class QuizGame {
    *get a random question
    */
   getARandomQuestion() {
+    $("#countdown").text("10s");
     $.get("/games/getQuestion", data => {
       console.log(data);
       $("#topic").text(data.topic);

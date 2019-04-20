@@ -41,6 +41,7 @@ router.get("/profile", isLoggedIn, (req, res, next) => {
 });
 
 router.use("/", notLoggedIn, (req, res, next) => {
+  console.log(req.user);
   next();
 });
 
@@ -62,7 +63,18 @@ router.post(
 
 router.get("/signout", function(req, res, next) {
   req.session.destroy(function(err) {
+    req.isLogged = false;
     res.redirect("/");
+  });
+});
+
+router.get("/rank", function(req, res, next) {
+  console.log("Goi bang xep hang");
+  res.render("user/rank", {
+    title: "Bảng xếp hạng", isLogged: req.isLogged,
+    username: req.user
+      ? req.user.firstname + " " + req.user.lastname
+      : "Not logged in"
   });
 });
 
@@ -76,6 +88,7 @@ function isLoggedIn(req, res, next) {
 
 function notLoggedIn(req, res, next) {
   if (!req.isAuthenticated()) {
+    req.isLogged = false;
     return next();
   }
   res.redirect("/");

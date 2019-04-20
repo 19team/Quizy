@@ -2,14 +2,9 @@
   <script type="text/javascript" src="../javascripts/QuizGame.js"></script>
   <script type="text/javascript" src="../javascripts/classic-mode-controller.js"></script>
 
-  <div class="container" id="game-container">
-    <div class="row" style="padding: 30px 0px;">
-      <!-- <div class="col-12 col-md-6 col-xl-3 d-md-flex" style="width: 25%;"></div> -->
-      <div id="intro-stage" class="col-1 col-md-8 col-xl-8" style="min-height: 540px">
-        <!-- <span
-        style="font-size: 100px; color: #14a76c; font-family: LinotteBold; text-align: center; margin: 0 auto; width: inherit;"
-        >Classic</span
-      > -->
+  <div id="game-container">
+    <div class="row">
+      <div id="intro-stage" class="col-12 col-sm-12 col-md-12 col-xl-12 rounded" style="padding: 0 15rem; background: #272727; border: solid 1px #272727; min-height: 30rem;">
         <div>
           <p style="font-size: 90px; text-align: center; font-family: LinotteHeavy; color:#14a76c">
             Classic
@@ -28,53 +23,50 @@
         </div>
         <a id="" class="start-btn rounded-btn" class="nav-item text-center">Bắt đầu</a>
       </div>
-      <div id="game-stage" class="col-12 col-md-6 col-xl-3" style="display: none;min-height: 540px">
+      <div id="game-stage" class="col-12 col-sm-12 col-md-12 col-xl-12" style="display: none; padding: 0 15rem; background: #272727; border: solid 1px #272727; min-height: 30rem;">
         <div>
           <p style="font-size: 90px; text-align: center; font-family: LinotteHeavy; color:#14a76c">
             Classic
           </p>
         </div>
-        <div class="table-responsive">
-          <table class="table">
-            <thead>
-              <tr></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td id="topic"></td>
-                <td id="countdown"></td>
-              </tr>
-              <tr></tr>
-            </tbody>
-          </table>
+        <div class="row">
+          <span class="col-6 align-text-middle" id="topic"></span>
+          <span class="col-6 align-text-middle" id="countdown"></span>
         </div>
         <div>
           <p id="question" style="padding: 15px 15px;font-size: 30px;width: 100%;">
             <strong></strong>
           </p>
           <div>
-            <button id="answerA" class="btn btn-light text-center d-flex float-none btn-answer" type="button" style="width: 100%;"></button>
+            <button id="answerA" class="btn btn-light btn-block btn-answer" type="button"></button>
           </div>
           <div>
-            <button id="answerB" class="btn btn-light text-center d-flex float-none btn-answer" type="button" style="width: 100%;"></button>
+            <button id="answerB" class="btn btn-light btn-block btn-answer" type="button"></button>
           </div>
           <div>
-            <button id="answerC" action="/getQuestion" method="post" class="btn btn-light text-center d-flex float-none btn-answer" type="button"
-              style="width: 100%;"></button>
+            <button id="answerC" action="/getQuestion" method="post" class="btn btn-light btn-block btn-answer" type="button"></button>
           </div>
           <div>
-            <button id="answerD" class="btn btn-light text-center d-flex float-none btn-answer" type="button" style="width: 100%;"></button>
+            <button id="answerD" class="btn btn-light btn-block btn-answer" type="button"></button>
           </div>
           <div id="nextQuestion" style="display: none;">
-            <button class="btn btn-light text-center d-flex float-none" type="button" style="width: 100%;">
+            <button class="btn btn-light btn-block" type="button">
               Câu tiếp
             </button>
           </div>
 
           <div class="question-container"></div>
         </div>
+        <script type="text/javascript">
+          $(window).on("beforeunload", function () {
+            var c = confirm();
+            if (c) {
+              return true;
+            } else return false;
+          });
+        </script>
       </div>
-      <div id="end-stage" class="col-1 col-md-8 col-xl-8" style="display: none;min-height: 540px">
+      <div id="end-stage" class="col-12 col-sm-12 col-md-12 col-xl-12" style="display: none; padding: 0 15rem; background: #272727; border: solid 1px #272727; min-height: 30rem;">
         <div>
           <p style="font-size: 90px; text-align: center; font-family: LinotteHeavy; color:#14a76c">
             Classic
@@ -88,6 +80,6 @@
           <a id="" class="start-btn rounded-btn" class="nav-item text-center">Chơi lại</a>
         </div>
       </div>
-      <!-- <div class="col-12 col-md-6 col-xl-3" style="width: 25%;"></div> -->
+
     </div>
   </div>

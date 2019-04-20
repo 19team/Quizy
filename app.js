@@ -23,7 +23,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-
 //Import them vao
 var passport = require("passport");
 var session = require("express-session");
@@ -36,7 +35,6 @@ app.use(
   })
 );
 app.use(bodyParser.json());
-
 
 // For Passport
 //check sign up
@@ -81,6 +79,7 @@ app.use((req, res, next) => {
   res.locals.session = req.session;
   next();
 });
+
 
 // error handler
 app.use(function(err, req, res, next) {
