@@ -3,9 +3,6 @@ const passport = require("passport");
 const router = express.Router();
 
 /* GET users listing. */
-router.get("/", function(req, res, next) {
-  res.send("respond with a resource");
-});
 
 router.get("/signin", (req, res, next) => {
   var messages = req.flash("error");
@@ -40,7 +37,7 @@ router.get("/profile", isLoggedIn, (req, res, next) => {
   });
 });
 
-router.use("/", notLoggedIn, (req, res, next) => {
+router.get("/", isLoggedIn, (req, res, next) => {
   console.log(req.user);
   next();
 });
@@ -68,15 +65,7 @@ router.get("/signout", function(req, res, next) {
   });
 });
 
-router.get("/rank", function(req, res, next) {
-  console.log("Goi bang xep hang");
-  res.render("user/rank", {
-    title: "Bảng xếp hạng", isLogged: req.isLogged,
-    username: req.user
-      ? req.user.firstname + " " + req.user.lastname
-      : "Not logged in"
-  });
-});
+
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {

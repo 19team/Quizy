@@ -37,7 +37,8 @@ module.exports = class LevelRank extends AbstractRank {
   async getPositionById(id) {
     return UserDetail.findAll({
       attributes: ["user_id", "level", "exp"],
-      order: [["level", "DESC"]]
+      order: [["level", "DESC"], ["exp", "DESC"]],
+      include: [{ model: models.user }]
     }).then(data => {
       let pos = 1;
       for (let i = 0; i < data.length; i++) {
@@ -50,7 +51,7 @@ module.exports = class LevelRank extends AbstractRank {
         pos++;
       }
       console.log(pos);
-      return pos;
+      return {position: pos, detail: data[pos - 1].dataValues};
     }) 
     .catch(reason => {
       console.log(reason);

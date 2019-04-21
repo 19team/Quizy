@@ -67,7 +67,7 @@ require("./config/passport")(passport, models.user, models.userdetails);
 app.use("/", indexRouter);
 app.use("/user", usersRouter);
 app.use("/games", gamesRouter);
-app.use("/rank", ranksRouter);
+app.use("/user", ranksRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
