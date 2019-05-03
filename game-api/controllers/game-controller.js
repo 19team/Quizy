@@ -3,31 +3,35 @@ const models = require("../../models");
 const Question = models.question;
 const UserDetails = models.userdetails;
 const utils = require("../../utils/utils");
-const levelSystem = require("../level-point-system/level-point-system").levelSystem;
+const levelSystem = require("../level-point-system/level-point-system")
+  .levelSystem;
 
 function updateLevel(user, currentLevel, exp) {
   let newLevel;
   for (let i = 0; i < levelSystem.length; i++) {
     console.log("Level " + levelSystem[i]);
-    if (exp >= levelSystem[i] && exp < levelSystem[i+1]) {
+    if (exp >= levelSystem[i] && exp < levelSystem[i + 1]) {
       newLevel = i;
       break;
     }
   }
   console.log("Level hien tai la:" + newLevel);
   if (newLevel > currentLevel) {
-    user.update({level: newLevel});
+    user.update({ level: newLevel });
   }
-} 
+}
 
-exports.getGamePage = function(req, res) {
+const gamelist = require("../models/gamelist").gameList;
+exports.getGameListPage = function(req, res) {
+  res.render("games/gamelist", gameList);
+};
+
+exports.getClassicGamePage = function(req, res) {
   console.log(req.user);
   res.render("games/classic", {
     title: "Classic",
     isLogged: req.isLogged,
-    username: req.user
-      ? req.user.firstname + " " + req.user.lastname
-      : "Not logged in"
+    username: req.user ? req.user.lastname : "Not logged in"
   });
 };
 
@@ -70,7 +74,6 @@ exports.checkAnswer = function(req, res) {
         console.log(data.dataValues);
         //if user had true answer, send result
         if (data.dataValues.answer === submitData.answer) {
-          
           // update true quiz quantity, exp += 5
           userDetails.update({
             trueQuizQuantity: userDetails.dataValues.trueQuizQuantity + 1,
@@ -90,22 +93,28 @@ exports.checkAnswer = function(req, res) {
               trueQuizSeries: userDetails.dataValues.currentTrueQuizSeries
             });
           }
-          updateLevel(userDetails, userDetails.dataValues.level, userDetails.dataValues.exp);
+          updateLevel(
+            userDetails,
+            userDetails.dataValues.level,
+            userDetails.dataValues.exp
+          );
           console.log(userDetails.dataValues.trueQuizQuantity);
           res.send({ result: true });
           //if user had false answer, send result and update false quiz quantity
         } else {
-          
           //current true quiz series back to 0, exp += 1
           userDetails.update({
             falseQuizQuantity: userDetails.dataValues.falseQuizQuantity + 1,
             currentTrueQuizSeries: 0,
             exp: userDetails.dataValues.exp + 1
           });
-          updateLevel(userDetails, userDetails.dataValues.level, userDetails.dataValues.exp);
+          updateLevel(
+            userDetails,
+            userDetails.dataValues.level,
+            userDetails.dataValues.exp
+          );
           console.log(userDetails.dataValues.falseQuizQuantity);
           res.send({ result: false });
-          
         }
       })
       .catch(err => {
