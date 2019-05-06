@@ -17,7 +17,7 @@ exports.getRankPage = function(req, res) {
       title: "Bảng xếp hạng",
       isLogged: req.isLogged,
       username: req.user
-        ? req.user.firstname + " " + req.user.lastname
+        ? req.user.lastname
         : "Not logged in",
       levelRank: rank.getTop10(),
       currentUser: await rank.getPositionById(req.user.id)

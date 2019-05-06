@@ -1,6 +1,9 @@
 const express = require("express");
 const passport = require("passport");
 const router = express.Router();
+const models = require("../models");
+const User = models.user;
+const UserDetails = models.userdetails;
 
 /* GET users listing. */
 
@@ -28,12 +31,38 @@ router.get("/signup", (req, res, next) => {
 });
 
 router.get("/profile", isLoggedIn, (req, res, next) => {
-  res.render("user/profile", {
-    title: "Profile",
-    isLogged: req.isLogged,
-    username: req.user
-      ? req.user.firstname + " " + req.user.lastname
-      : "Not logged in"
+  UserDetails.findOne({
+    where: {
+      user_id: req.user.id
+    },
+    include: [{ model: models.user }]
+  }).then(data => {
+    //get user's data
+    const trueQuizRaito =  (data.trueQuizQuantity/(data.trueQuizQuantity + data.falseQuizQuantity) * 100).toFixed(1);
+    const user = {
+      firstname: data.user.dataValues.firstname,
+      lastname: data.user.dataValues.lastname,
+      email: data.user.dataValues.email,
+      level: data.level,
+      exp: data.exp,
+      winMatchQuantity: data.winMatchQuantity,
+      playedMatchQuantity: data.playedMatchQuantity,
+      trueQuizQuantity: data.trueQuizQuantity,
+      falseQuizQuantity: data.falseQuizQuantity,
+      trueQuizSeries: data.trueQuizSeries,
+      currentTrueQuizSeries: data.currentTrueQuizSeries,
+      trueQuizRaitoProcess:
+        '<div class="col-md-6"><div class="progress" style="height: 1.5rem"><div id="question-process-bar" class="progress-bar bg-success" role="progressbar" style="width:' + trueQuizRaito +  '%;"aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">'+ trueQuizRaito +'%</div><div class="progress-bar bg-danger" role="progressbar" style="width:'+ (100 - trueQuizRaito) + '%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">'+ (100 - trueQuizRaito) +'%</div></div></div>'
+    };
+    console.log(user);
+    res.render("user/profile", {
+      title: "Trang cá nhân",
+      isLogged: req.isLogged,
+      username: req.user
+        ? req.user.lastname
+        : "Not logged in",
+      user: user
+    });
   });
 });
 
@@ -64,8 +93,6 @@ router.get("/signout", function(req, res, next) {
     res.redirect("/");
   });
 });
-
-
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {

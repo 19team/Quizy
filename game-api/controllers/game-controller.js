@@ -23,7 +23,11 @@ function updateLevel(user, currentLevel, exp) {
 
 const gamelist = require("../models/gamelist").gameList;
 exports.getGameListPage = function(req, res) {
-  res.render("games/gamelist", gameList);
+  res.render("games/gamelist", {
+    title: "Danh sách trò chơi",
+    isLogged: req.isLogged,
+    username: req.user ? req.user.lastname : "Not logged in",
+    gameList: gamelist});
 };
 
 exports.getClassicGamePage = function(req, res) {

@@ -4,7 +4,7 @@ var controller = require("../controllers/game-controller");
 const utils = require("../../utils/utils");
 
 /* GET list game page */
-router.get("/", )
+router.get("/", controller.getGameListPage);
 
 /* GET classic game page */
 router.get("/classic", utils.isLoggedIn, controller.getClassicGamePage);
