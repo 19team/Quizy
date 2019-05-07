@@ -30,7 +30,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="nav navbar-nav ml-auto">
                     <li class="nav-item mx-0 mx-lg-1" role="presentation">
-                        <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/games/classic">Chơi</a>
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/games">Chơi</a>
                     </li>
                     <li class="nav-item mx-0 mx-lg-1" role="presentation">
                         <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/user/rank">Bảng xếp hạng</a>
@@ -203,12 +203,10 @@
                                 }, (success) => {
                                     console.log("trang thai: " + success);
                                     if (success) {
-                                        $("#contact-modal-content").text("Cảm ơn phản hồi của bạn!\nChúng mình sẽ cố gắng hết mình để phát triển Quizy.");
+                                        alert("Cảm ơn phản hồi của bạn!\nChúng mình sẽ cố gắng hết mình để phát triển Quizy.");
                                         console.log("da thanh cong");
-                                        $("#contact-modal").modal("show");
                                     } else {
-                                        $("#contact-modal-content").text("Phản hồi của bạn chưa được ghi lại.\nVui lòng thử lại.");
-                                        $("#contact-modal").modal("show");
+                                        alert("Phản hồi của bạn chưa được ghi lại.\nVui lòng thử lại.");
                                     }
                                 })
                             });
