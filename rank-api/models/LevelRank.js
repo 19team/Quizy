@@ -15,7 +15,7 @@ module.exports = class LevelRank extends AbstractRank {
     //get top 10 from database
     await UserDetail.findAll({
       attributes: ["user_id", "level", "exp"],
-      order: [["level", "DESC"]],
+      order: [["level", "DESC"], ["exp", "DESC"]],
       limit: 10,
       include: [{ model: models.user }]
     })
