@@ -36,7 +36,7 @@ module.exports = function(sequelize, Sequelize) {
     },
     createAt: {
       type: Sequelize.DATE,
-      defaultValue: sequelize.literal("NOW()")
+      defaultValue: sequelize.literal("nod()")
     }
   });
   return Contact;
