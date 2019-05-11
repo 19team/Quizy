@@ -1,15 +1,15 @@
 
 module.exports = {
   "development" : {
-    "username": "zQfQZVB6qJ",
-    "password": "pJqvhIvRPA",
-    "database": "zQfQZVB6qJ",
-    "host": "remotemysql.com",
+    "username": process.env.USER ||"zQfQZVB6qJ",
+    "password":  process.env.PASSWORD || "pJqvhIvRPA",
+    "database": process.env.DB || "zQfQZVB6qJ",
+    "host": process.env.DBHOST || "remotemysql.com",
     "dialect": "mysql",
     "connection": {
-      "host": "remotemysql.com",
-      "user": "zQfQZVB6qJ",
-      "password": "pJqvhIvRPA"
+      "host": process.env.DBHOST || "remotemysql.com",
+      "user": process.env.USER ||"zQfQZVB6qJ",
+      "password": process.env.PASSWORD || "pJqvhIvRPA"
     }
   }
   
