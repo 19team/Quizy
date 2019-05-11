@@ -200,35 +200,14 @@
                                     email: $("#email").val(),
                                     phoneNumber: $("#phone").val(),
                                     message: $("#message").val()
-                                }, (success) => {
-                                    console.log("trang thai: " + success);
-                                    if (success) {
-                                        alert("Cảm ơn phản hồi của bạn!\nChúng mình sẽ cố gắng hết mình để phát triển Quizy.");
-                                        console.log("da thanh cong");
-                                    } else {
-                                        alert("Phản hồi của bạn chưa được ghi lại.\nVui lòng thử lại.");
-                                    }
-                                })
+                                });
+                                alert("Cảm ơn bạn đã phản hồi!\nKiểm tra mail xác nhận từ Quizy nhé!");
                             });
                     </script>
                 </div>
             </div>
         </div>
-        <div class="modal" id="contact-modal" role="dialog">
-            <div class="modal-dialog">
-            
-              <!-- Modal content-->
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h4 class="modal-title">Quizy</h4>
-                </div>
-                <div class="modal-body" >
-                  <p id="contact-modal-content"></p>
-                </div>
-              </div>
-              
-            </div>
-          </div>
+        
     </section>
     
     <footer class="footer text-center">
