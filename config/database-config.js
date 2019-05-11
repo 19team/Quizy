@@ -1,4 +1,5 @@
 
+var env = process.env.NODE_ENV || "development";
 
 module.exports = {
   "development" : {
@@ -14,4 +15,4 @@ module.exports = {
     }
   }
   
-}
+}[env];
