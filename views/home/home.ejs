@@ -210,15 +210,8 @@
                                 email: $("#email").val(),
                                 phoneNumber: $("#phone").val(),
                                 message: $("#message").val()
-                            }, (success) => {
-                                console.log("trang thai: " + success);
-                                if (success) {
-                                    alert("Cảm ơn phản hồi của bạn!\nChúng mình sẽ cố gắng hết mình để phát triển Quizy.");
-                                    console.log("da thanh cong");
-                                } else {
-                                    alert("Phản hồi của bạn chưa được ghi lại.\nVui lòng thử lại.");
-                                }
-                            })
+                            });
+                            alert("Cảm ơn bạn đã phản hồi cho Quizy!\nKiểm tra xem bạn có nhận được mail từ Quizy không nhé!");
                         });
                     </script>
                 </div>
