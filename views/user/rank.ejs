@@ -68,7 +68,7 @@
                       </tr>
                       <% } else {%>
                         <% levelRank.forEach(function (user, i) { %>
-                          <% if(i == currentUser.position - 1) { %>
+                          <% if(i == currentUser.position - 1  && i > 2) { %>
                             <tr class="bg-info"  id="number<%=i%>">
                               <th scope="row">
                                 <%=i + 1%>
