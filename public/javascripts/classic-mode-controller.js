@@ -4,6 +4,7 @@ var isAnswered = false;
 
 function startNewGame() {
   game = new QuizGame(10);
+  game.currentQuestionIndex = 0;
   game.resetStyle();
   game.progressCountdown(10).then(value => {
     if (value) {

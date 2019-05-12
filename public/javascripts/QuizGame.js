@@ -47,9 +47,9 @@ class QuizGame {
    *
    * @param {string} buttonId - button's id attribute
    */
-  checkAnswer(buttonId) {
+  async checkAnswer(buttonId) {
     if (!this.isAnswered) {
-      $.post(
+      await $.post(
         "/games/getAnswer",
         { question: $("#question").text(), answer: $("#" + buttonId).text() },
         data => {
@@ -61,12 +61,15 @@ class QuizGame {
             $("#" + buttonId).css("background-color", "#5cb85c");
           }
           $("#" + buttonId).css("color", "#ffffff");
+          this.checkMaxQuestionAmount();
+          this.isAnswered = true;
+          $("#nextQuestion").show();
         }
       );
-      this.checkMaxQuestionAmount();
-      this.isAnswered = true;
+      
     }
-    $("#nextQuestion").show();
+    
+    
   }
 
   /**
@@ -83,13 +86,14 @@ class QuizGame {
             $(element).css("color", "#272727");
           }
         });
+        if (!this.checkMaxQuestionAmount()) {
+          $("#nextQuestion").show();
+        } else {
+          this.showEndGameStage();
+        }
       }
     );
-    if (!this.checkMaxQuestionAmount()) {
-      $("#nextQuestion").show();
-    } else {
-      this.showEndGameStage();
-    }
+    
   }
 
   /**
