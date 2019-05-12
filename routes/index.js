@@ -15,8 +15,8 @@ router.get("/", function(req, res, next) {
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'vatliyeutoi@gmail.com',
-    pass: 'hoangthithuytrang12345'
+    user: 'quizy.contact@gmail.com',
+    pass: 'quizy12345'
   }
 });
 
@@ -26,16 +26,16 @@ router.post("/contact", function(req, res) {
   const contact = req.body;
   console.log(contact);
   var mailOptionsForDev = {
-    from: 'vatliyeutoi@gmail.com',
-    to: 'vatliyeutoi@gmail.com',
+    from: 'quizy.contact@gmail.com',
+    to: 'quizy.contact@gmail.com',
     subject: 'Quizy Contact' + contact.name,
     text: JSON.stringify(contact)
   };
 
   var mailOptionsForUser = {
-    from: 'vatliyeutoi@gmail.com',
+    from: 'quizy.contact@gmail.com',
     to: contact.email,
-    subject: 'Quizy Contact',
+    subject: 'QUIZY PHẢN HỒI',
     text: 'Cảm ơn phản hồi của bạn.\nMong bạn sẽ tiếp tục ủng hộ Quizy trong tương lai.'
   };
   
