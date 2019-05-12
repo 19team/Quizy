@@ -1,12 +1,11 @@
+<% include ../scripts/script %>
+  <link rel="stylesheet" href="/stylesheets/rank.css" />
 <% layout('../layouts/layout') -%>
 
   <div style="padding: 0 2rem">
     <div class="text-center">
-      <h1 style="padding: 2rem">BẢNG XẾP HẠNG</h1 </div>
+      <h1 style="padding: 2rem">BẢNG XẾP HẠNG</h1>
       <div>
-        <div class="text-uppercase badge badge-dark" style="font-size: 1.2rem; margin: 0.5rem 0">
-          Bảng xếp hạng Level
-        </div>
         <table class="table text-center">
           <thead class="thead-dark">
             <tr>
@@ -20,7 +19,7 @@
             <% if (currentUser.position > 10) { %>
               <% levelRank.forEach(function
         (user, i) { %>
-                <tr>
+                <tr id="number<%=i%>">
                   <th scope="row">
                     <%=i + 1%>
                   </th>
@@ -70,7 +69,7 @@
                       <% } else {%>
                         <% levelRank.forEach(function (user, i) { %>
                           <% if(i == currentUser.position - 1) { %>
-                            <tr class="bg-info">
+                            <tr class="bg-info"  id="number<%=i%>">
                               <th scope="row">
                                 <%=i + 1%>
                               </th>
@@ -86,7 +85,7 @@
                               </td>
                             </tr>
                             <% } else { %>
-                              <tr>
+                              <tr id="number<%=i%>">
                                 <th scope="row">
                                   <%=i + 1%>
                                 </th>
