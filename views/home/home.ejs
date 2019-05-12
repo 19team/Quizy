@@ -1,4 +1,4 @@
-<html>
+﻿<html>
 
 <head>
     <meta charset="utf-8" />
@@ -202,8 +202,7 @@
                             <button class="btn btn-primary btn-xl" id="sendMessageButton">Gửi</button>
                         </div>
                     </form>
-
-                    <script type="text/javascript">
+		            <script type="text/javascript">
                         $("#sendMessageButton").click(() => {
                             $.post("/contact", {
                                 name: $("#name").val(),
@@ -211,25 +210,10 @@
                                 phoneNumber: $("#phone").val(),
                                 message: $("#message").val()
                             });
-                            alert("Cảm ơn bạn đã phản hồi cho Quizy!\nKiểm tra xem bạn có nhận được mail từ Quizy không nhé!");
+                            alert("Cảm ơn bạn đã phản hồi!\nKiểm tra mail xác nhận từ Quizy nhé!");
                         });
                     </script>
                 </div>
-            </div>
-        </div>
-        <div class="modal" id="contact-modal" role="dialog">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Quizy</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p id="contact-modal-content"></p>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
@@ -291,7 +275,7 @@
                 <div class="modal-footer pb-5">
                     <a class="btn btn-primary btn-lg mx-auto rounded-pill portfolio-modal-dismiss" role="button"
                         href="/games">
-                        <i class="fa fa-close"></i> Tham gia ngay</a>
+                        <i class="fa fa-close"></i> Tham gia ngay</a>
                 </div>
             </div>
         </div>
@@ -324,7 +308,7 @@
                 <div class="modal-footer pb-5">
                     <a class="btn btn-primary btn-lg mx-auto rounded-pill portfolio-modal-dismiss" role="button"
                         href="/games">
-                        <i class="fa fa-close"></i> Tham gia ngay</a>
+                        <i class="fa fa-close"></i> Tham gia ngay</a>
                 </div>
             </div>
         </div>
@@ -354,7 +338,7 @@
                 <div class="modal-footer pb-5">
                     <a class="btn btn-primary btn-lg mx-auto rounded-pill portfolio-modal-dismiss" role="button"
                         href="/games">
-                        <i class="fa fa-close"></i> Tham gia ngay</a>
+                        <i class="fa fa-close"></i> Tham gia ngay</a>
                 </div>
             </div>
         </div>
@@ -390,7 +374,7 @@
                 <div class="modal-footer pb-5">
                     <a class="btn btn-primary btn-lg mx-auto rounded-pill portfolio-modal-dismiss" role="button"
                         href="/games">
-                        <i class="fa fa-close"></i> Tham gia ngay</a>
+                        <i class="fa fa-close"></i> Tham gia ngay</a>
                 </div>
             </div>
         </div>
@@ -422,7 +406,7 @@
                 <div class="modal-footer pb-5">
                     <a class="btn btn-primary btn-lg mx-auto rounded-pill portfolio-modal-dismiss" role="button"
                         href="/games">
-                        <i class="fa fa-close"></i> Tham gia ngay</a>
+                        <i class="fa fa-close"></i> Tham gia ngay</a>
                 </div>
             </div>
         </div>
@@ -455,7 +439,7 @@
                 <div class="modal-footer pb-5">
                     <a class="btn btn-primary btn-lg mx-auto rounded-pill portfolio-modal-dismiss" role="button"
                         href="/games">
-                        <i class="fa fa-close"></i> Tham gia ngay</a>
+                        <i class="fa fa-close"></i> Tham gia ngay</a>
                 </div>
             </div>
         </div>
