@@ -102,7 +102,6 @@ class QuizGame {
   getARandomQuestion() {
     $("#countdown").text("10s");
     $.get("/games/getQuestion", data => {
-      console.log(data);
       $("#topic").text(data.topic);
       $("#question").text(data.question);
       $("#answerA").text(data.answerA);
