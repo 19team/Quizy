@@ -47,7 +47,11 @@ module.exports = function(passport, user, userdetails) {
           errors.forEach(error => {
             messages.push(error.msg);
           });
+          
           return done(null, false, req.flash("error", messages));
+        }
+        if (req.body.password !== req.body.confirmPassword) {
+          return done(null, false, req.flash("error", ["Nhập lại mật khẩu không trùng khớp"]));
         }
 
         var generateHash = function(password) {

@@ -38,7 +38,13 @@ router.get("/profile", isLoggedIn, (req, res, next) => {
     include: [{ model: models.user }]
   }).then(data => {
     //get user's data
-    const trueQuizRaito =  (data.trueQuizQuantity/(data.trueQuizQuantity + data.falseQuizQuantity) * 100).toFixed(1);
+
+    let trueQuizRaito;
+    if (data.trueQuizQuantity + data.falseQuizQuantity === 0) {
+      trueQuizRaito = 50;
+    } else {
+      trueQuizRaito =  (data.trueQuizQuantity/(data.trueQuizQuantity + data.falseQuizQuantity) * 100).toFixed(1);
+    }
     const user = {
       firstname: data.user.dataValues.firstname,
       lastname: data.user.dataValues.lastname,

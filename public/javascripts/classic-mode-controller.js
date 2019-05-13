@@ -22,6 +22,11 @@ function nextQuestion() {
       game.getTrueAnswer();
     }
   });
+  if (game.checkMaxQuestionAmount())
+  {
+    game.showEndGameStage();
+    return;
+  }
   game.getARandomQuestion();
   isAnswered = false;
 }
