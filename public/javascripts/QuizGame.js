@@ -49,6 +49,7 @@ class QuizGame {
    */
   async checkAnswer(buttonId) {
     if (!this.isAnswered) {
+      this.isAnswered = true;
       await $.post(
         "/games/getAnswer",
         { question: $("#question").text(), answer: $("#" + buttonId).text() },
@@ -66,7 +67,7 @@ class QuizGame {
             $("#" + buttonId).css("background-color", "#5cb85c");
           }
           $("#" + buttonId).css("color", "#ffffff");
-          this.isAnswered = true;
+          
           $("#nextQuestion").show();
         }
       );
@@ -80,6 +81,7 @@ class QuizGame {
    * Get key from server
    */
   getTrueAnswer() {
+    this.isAnswered = true;
     $.post(
       "/games/getTrueAnswer",
       { question: $("#question").text() },
@@ -90,7 +92,7 @@ class QuizGame {
             $(element).css("color", "#272727");
           }
         });
-        this.isAnswered = true;
+        
         $("#nextQuestion").show();
       }
     );
