@@ -72,7 +72,6 @@ exports.checkAnswer = function(req, res) {
   var user = req.user;
   //find user'details inorder to update information
   UserDetails.findOne({ where: { user_id: user.id } }).then(userDetails => {
-    console.log("USER DETAILS: " + userDetails);
     Question.findOne({ where: { question: submitData.question } })
       .then(data => {
         console.log(data.dataValues);
@@ -102,7 +101,6 @@ exports.checkAnswer = function(req, res) {
             userDetails.dataValues.level,
             userDetails.dataValues.exp
           );
-          console.log(userDetails.dataValues.trueQuizQuantity);
           res.send({ result: true });
           //if user had false answer, send result and update false quiz quantity
         } else {
@@ -118,7 +116,7 @@ exports.checkAnswer = function(req, res) {
             userDetails.dataValues.exp
           );
           console.log(userDetails.dataValues.falseQuizQuantity);
-          res.send({ result: false });
+          res.send({ result: false, answer: data.dataValues.answer});
         }
       })
       .catch(err => {

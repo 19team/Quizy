@@ -55,7 +55,12 @@ class QuizGame {
         data => {
           if (data.result == false) {
             $("#" + buttonId).css("background-color", "#d9534f");
-            this.getTrueAnswer();
+            $(".btn-answer").each((i, element) => {
+              if ($(element).text() == data.answer) {
+                $(element).css("background-color", "#ffe400");
+                $(element).css("color", "#272727");
+              }
+            });
           } else {
             this.answerCorrectly();
             $("#" + buttonId).css("background-color", "#5cb85c");
@@ -85,6 +90,8 @@ class QuizGame {
             $(element).css("color", "#272727");
           }
         });
+        this.isAnswered = true;
+        $("#nextQuestion").show();
       }
     );
     
