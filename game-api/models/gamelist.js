@@ -9,7 +9,7 @@ exports.gameList = [
   },
   {
     name: "Kiểm tra: Môn Nguyên lý marketing",
-    imageLink: "http://www.accesa.com.sv/wp-content/uploads/2017/09/question.png",
+    imageLink: "https://i.ytimg.com/vi/BhH5meNf7FI/maxresdefault.jpg",
     questionAmount: 45,
     description:
       "Tổng hợp 45 câu hỏi môn Nguyên lý marketing ôn thi cuối kì",
