@@ -6,13 +6,9 @@ const connection = mysql.createConnection(dbconfig.connection);
 
 connection.query("USE " + dbconfig.database);
 const questionSourceLink = [
-  "DiaLy.json",
-  "LichSu.json",
-  "TuNhien.json",
-  "VanHoc.json",
-  "XaHoi.json"
+  "Marketing.json"
 ];
-var topics = ["Địa lý", "Lịch sử", "Tự nhiên", "Văn học", "Xã hội"];
+var topics = ["Marketing"];
 questionSourceLink.forEach((e, index) => {
   const content = require("../source/" + e);
   for (let i = 0; i < content.length; i++) {

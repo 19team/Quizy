@@ -1,0 +1,25 @@
+[{
+    "question": "Marketing truyền thống được bắt đầu với quan điểm tập trung vào:",
+    "key": "Sản xuất. ",
+    "falseAnswer1": "Cả sản xuất và khách hàng",
+    "falseAnswer2": "Khách hàng",
+    "falseAnswer3": "Sản phẩm"
+}, {
+    "question": "Một đoạn thị trường sẽ được đánh giá là kém hấp dẫn nếu: ",
+    "key": "Sự gia nhập của các đối thủ mới khá dễ dàng",
+    "falseAnswer1": "Doanh nghiệp dễ dàng thâm nhập",
+    "falseAnswer2": "Khó có khả năng thay thế sản phẩm",
+    "falseAnswer3": "Người mua ít có khả năng chi phối về giá"
+}, {
+    "question": "Sự cân đối lợi nhuận của doanh nghiệp, thoả mãn nhu cầu của khách hàng và lợi ích xã hội là một đòi hỏi đối với nhà marketing theo quan điểm:",
+    "key": "Marketing đạo đức xã hội",
+    "falseAnswer1": "Marketing định hướng sản phẩm",
+    "falseAnswer2": "Marketing định hướng thị trường",
+    "falseAnswer3": "Marketing định hướng sản xuất"
+}, {
+    "question": "Trao đổi không thể xảy ra được nếu thiếu các điều kiện sau đây, ngoại trừ:",
+    "key": "Hai bên được một bên nào đó thúc đẩy trao đổi.",
+    "falseAnswer1": "Có hai bên có những vật có giá trị đối với bên kia và có ý định trao đổi.",
+    "falseAnswer2": "Các bên được tự do trao đổi",
+    "falseAnswer3": "Hai bên đều có khả năng thực hiện hành vi trao đổi."
+}]

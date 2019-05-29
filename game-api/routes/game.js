@@ -9,8 +9,15 @@ router.get("/", utils.isLoggedIn, controller.getGameListPage);
 /* GET classic game page */
 router.get("/classic", utils.isLoggedIn, controller.getClassicGamePage);
 
+/* GET examination marketing page */
+router.get("/examination_marketing", utils.isLoggedIn, controller.getExaminationMarketingPage);
+
 /* GET a question */
-router.get("/getQuestion", controller.getARandomTopicQuestion);
+router.post("/getQuestion", controller.getARandomTopicQuestion);
+
+/* GET a question by topic */
+router.post("/getQuestionByTopic", controller.getAQuestionByTopic);
+
 
 /* POST an answer and check it */
 router.post("/getAnswer", controller.checkAnswer);

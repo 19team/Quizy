@@ -5,7 +5,7 @@ const UserDetails = models.userdetails;
 const utils = require("../../utils/utils");
 const levelSystem = require("../level-point-system/level-point-system")
   .levelSystem;
-
+const Op = Sequelize.Op;  //Sequelize's operator
 function updateLevel(user, currentLevel, exp) {
   let newLevel;
   for (let i = 0; i < levelSystem.length; i++) {
@@ -39,8 +39,57 @@ exports.getClassicGamePage = function(req, res) {
   });
 };
 
+exports.getExaminationMarketingPage = function(req, res) {
+  console.log(req.user);
+  res.render("games/examination", {
+    title: "Marketing Examination",
+    isLogged: req.isLogged,
+    username: req.user ? req.user.lastname : "Not logged in"
+  });
+};
+
 exports.getARandomTopicQuestion = function(req, res) {
+  console.log("B1");
+  const answeredList = JSON.parse(req.body.answeredList);
+  console.log("B2: " + answeredList);
   Question.findOne({
+    where: {
+      question: {[Op.notIn]:[answeredList]}
+    },
+    order: [[Sequelize.fn("RAND")]],
+    limit: 1
+  })
+    .then(data => {
+      var answers = utils.shuffleArray([
+        data.dataValues.answer,
+        data.dataValues.falseAnswer1,
+        data.dataValues.falseAnswer2,
+        data.dataValues.falseAnswer3
+      ]);
+      const question = {
+        topic: data.dataValues.topic,
+        question: data.dataValues.question,
+        answerA: answers[0],
+        answerB: answers[1],
+        answerC: answers[2],
+        answerD: answers[3]
+      };
+      res.send(question);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+exports.getAQuestionByTopic = function(req, res) {
+  console.log("B1");
+  const answeredList = JSON.parse(req.body.answeredList);
+  console.log("B2: " + answeredList);
+  Question.findOne({
+    where: {
+      topic: req.body.topic,
+      question: {[Op.notIn]:[answeredList]}
+    },
     order: [[Sequelize.fn("RAND")]],
     limit: 1
   })

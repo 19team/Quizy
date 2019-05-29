@@ -3,13 +3,15 @@ class QuizGame {
    *
    * @param {Integer} maxQuestionAmount - maximumn number of question of the game
    */
-  constructor(maxQuestionAmount) {
+  constructor(maxQuestionAmount, timeLimit) {
     this.currentQuestionIndex = 0;
     this.score = 0;
     this.trueQuestions = 0;
     this.falseQuestions = 0;
     this.maxQuestionAmount = maxQuestionAmount;
     this.isAnswered = false;
+    this.answeredList = ["Empty"];
+    this.timeLimit = timeLimit;
   }
 
   /**
@@ -67,14 +69,12 @@ class QuizGame {
             $("#" + buttonId).css("background-color", "#5cb85c");
           }
           $("#" + buttonId).css("color", "#ffffff");
-          
+
           $("#nextQuestion").show();
         }
       );
-      
+
     }
-    
-    
   }
 
   /**
@@ -92,27 +92,48 @@ class QuizGame {
             $(element).css("color", "#272727");
           }
         });
-        
+
         $("#nextQuestion").show();
       }
     );
-    
   }
 
   /**
    *get a random question
    */
   getARandomQuestion() {
-    $("#countdown").text("10s");
-    $.get("/games/getQuestion", data => {
+    console.log(this.answeredList);
+    $.post("/games/getQuestion", { answeredList: JSON.stringify(this.answeredList) }, data => {
       $("#topic").text(data.topic);
       $("#question").text(data.question);
       $("#answerA").text(data.answerA);
       $("#answerB").text(data.answerB);
       $("#answerC").text(data.answerC);
       $("#answerD").text(data.answerD);
+      $("#countdown").text(this.timeLimit.toString() + "s");
       this.currentQuestionIndex++;
       this.isAnswered = false;
+      this.answeredList.push(data.question); //add to answerdQuestionList
+    });
+    $("#nextQuestion").hide();
+  }
+
+  /**
+   *get a random question by topic
+   */
+  getARandomQuestionByTopic(topic) {
+    console.log(this.answeredList);
+    $.post("/games/getQuestionByTopic", {topic:topic, answeredList: JSON.stringify(this.answeredList) }, data => {
+      $("#topic").text(data.topic);
+      $("#question").text(data.question);
+      $("#answerA").text(data.answerA);
+      $("#answerB").text(data.answerB);
+      $("#answerC").text(data.answerC);
+      $("#answerD").text(data.answerD);
+      $("#countdown").text(this.timeLimit.toString());
+      this.currentQuestionIndex++;
+      this.isAnswered = false;
+      this.answeredList.push(data.question); //add to answerdQuestionList
     });
     $("#nextQuestion").hide();
   }

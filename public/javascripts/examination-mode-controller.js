@@ -3,7 +3,7 @@ var game;
 var isAnswered = false;
 
 function startNewGame() {
-  game = new QuizGame(10, 10);
+  game = new QuizGame(45, 20);
   game.currentQuestionIndex = 0;
   game.resetStyle();
   game.progressCountdown(game.timeLimit).then(value => {
@@ -11,7 +11,7 @@ function startNewGame() {
       game.getTrueAnswer();
     }
   });
-  game.getARandomQuestion();
+  game.getARandomQuestionByTopic("Marketing");
   isAnswered = false;
 }
 
@@ -27,7 +27,7 @@ function nextQuestion() {
     game.showEndGameStage();
     return;
   }
-  game.getARandomQuestion();
+  game.getARandomQuestionByTopic("Marketing");
   isAnswered = false;
 }
 
